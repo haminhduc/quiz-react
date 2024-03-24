@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import QuizCard from "./QuizCard.js";
+import "./App.css";
 
 function App() {
+  const [questionList, setQuestionList] = useState([]);
+
+  // const triviaAPI = "https://opentdb.com/api.php?amount=5";
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`https://opentdb.com/api.php?amount=10`);
+      const newData = await response.json();
+      setQuestionList(newData.results);
+    };
+
+    fetchData();
+  });
+  console.log(questionList);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <QuizCard questionList={questionList} />;
     </div>
   );
 }
