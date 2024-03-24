@@ -15,7 +15,7 @@ function App() {
     };
 
     fetchData();
-  });
+  }, []);
   console.log(questionList);
 
   return (
