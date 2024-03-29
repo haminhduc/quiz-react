@@ -152,14 +152,15 @@ table {
   border-radius: 5px;
 }
 .answer-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  /* grid-template-columns: 1fr 1fr;
+  gap: 10px; */
 }
 .answer-item {
-  text-align: center;
-  border: 0.7px solid black;
-  border-radius: 5px;
+  /* text-align: center; */
+  /* border: 0.7px solid black;
+  border-radius: 5px; */
 }
 hr {
   display: block;
@@ -168,4 +169,23 @@ hr {
   height: 1px;
   border: 0;
   border-top: 1px solid #080808;
+}
+
+label {
+  cursor: pointer;
+}
+.btn {
+  display: block;
+  margin: 10px auto;
+
+  background-color: aquamarine;
+  width: 100px;
+  height: 30px;
+}
+.selected {
+  border: 1px solid #3af30c;
+}
+.quiz-result {
+  margin-top: 50px;
+  text-align: center;
 }

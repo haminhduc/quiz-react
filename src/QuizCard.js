@@ -1,39 +1,69 @@
 // display quizz
 function QuizCard(props) {
+  const quizData = props.question;
+  // console.log("tuong cau hoi", quizData);
+  // collect answers and shuffle
+  const allAnswers = [...quizData.incorrect_answers];
+  allAnswers.push(quizData.correct_answer);
+  shuffle(allAnswers);
+  // console.log(allAnswers);
+
   return (
-    <div className="container">
-      <h1 className="quiz-title">General knowledge quiz</h1>
-      <article className="quiz-list">
-        <div className="quiz-item">
-          <h2 className="question">
-            Lorem ipsum, dolori quo autem fugit a non provident adipisci
-            cupiditate optio, ad ipsa.
-            {/* {questionList[0].question} */}
-          </h2>
-          <ul className="answer-list">
-            <li className="answer-item">
-              fugitorem asdasdas, quo autem fugorem asdasdas, quo autem fug
-              asda, quo a utem fug quo quo quo quo qu utem fug quo quo quo quo
-              qu o quo quo quo
-            </li>
-            <li className="answer-item">lorem asdasdas, quo autem fug</li>
-            <li className="answer-item">lorem asdasdas, quo autem fug</li>
-            <li className="answer-item">lorem asdasdas, quo autem fug</li>
-          </ul>
-          <hr />
-        </div>
-      </article>
+    <div className="quiz-item" id={props.questionID}>
+      <h2 className="question">{decode(quizData.question)}</h2>
+      <div className="answer-list">
+        {allAnswers.map((answer, index) => (
+          <label className="answer-item" key={index}>
+            <input
+              type="radio"
+              name={"q-" + props.questionID}
+              value={decode(answer)}
+              onChange={() =>
+                props.handleSelect(decode(answer), props.questionID)
+              }
+            />
+            {decode(answer)}
+          </label>
+        ))}
+      </div>
+      <hr />
     </div>
   );
-  // function getQuestions(callback) {
-  //   fetch(triviaAPI)
-  //     .then((data) => data.json())
-  //     .then(callback);
-  // }
-  // console.log(data);
-  // const questions = data.results;
-  // console.log(questions);
 
+  function decode(str) {
+    let txt = document.createElement("textarea");
+
+    txt.innerHTML = str;
+
+    return txt.value;
+  }
+  function shuffle(array) {
+    let currentIndex = array.length,
+      randomIndex;
+
+    // While there remain elements to shuffle.
+    while (currentIndex !== 0) {
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  }
+  /* <li
+              
+             
+              value={decode(answer)}
+              onClick={(event) => props.handleSelection(event, decode(answer))}
+            >
+              {decode(answer)}
+            </li> */
   //handle result
   // function handleResult(questionsData) {
   //   var answerContainers = quizzBlock.querySelectorAll(".answers-container");
