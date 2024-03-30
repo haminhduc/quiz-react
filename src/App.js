@@ -8,6 +8,8 @@ function App() {
   const [finalResult, setFinalResult] = useState(false);
   const [score, setScore] = useState(null);
 
+  const triviaAPI = "https://opentdb.com/api.php?amount=5";
+
   // decode special characters
   function decode(str) {
     let txt = document.createElement("textarea");
@@ -17,11 +19,10 @@ function App() {
     return txt.value;
   }
 
-  // const triviaAPI = "https://opentdb.com/api.php?amount=5";
-
+  // fetch API
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`https://opentdb.com/api.php?amount=10`);
+      const response = await fetch(`${triviaAPI}`);
       const newData = await response.json();
       setQuestionList(newData.results);
       // console.log("collected data", newData.results);
@@ -55,7 +56,7 @@ function App() {
     console.log(answerList);
   };
 
-  // Function to handle form submission
+  // Function to handle submission
   const handleSubmit = (event) => {
     console.log("submit answers");
     event.preventDefault();
@@ -82,11 +83,14 @@ function App() {
     <div className="App">
       <div className="container">
         <h1 className="quiz-title">General knowledge quiz</h1>
+
         {finalResult ? (
           <div className="quiz-end">
             <div className="quiz-result">
               You have{" "}
-              {score > 1
+              {score === null
+                ? ` 0 correct answers`
+                : score > 1
                 ? ` ${score} correct answers`
                 : ` ${score} correct answer`}
             </div>

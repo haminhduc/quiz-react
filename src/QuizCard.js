@@ -1,7 +1,7 @@
 // display quizz
 function QuizCard(props) {
   const quizData = props.question;
-  // console.log("tuong cau hoi", quizData);
+  // console.log( quizData);
   // collect answers and shuffle
   const allAnswers = [...quizData.incorrect_answers];
   allAnswers.push(quizData.correct_answer);
@@ -29,7 +29,7 @@ function QuizCard(props) {
       <hr />
     </div>
   );
-
+  // decode special characters
   function decode(str) {
     let txt = document.createElement("textarea");
 
@@ -37,6 +37,8 @@ function QuizCard(props) {
 
     return txt.value;
   }
+
+  // shuffle an array
   function shuffle(array) {
     let currentIndex = array.length,
       randomIndex;
@@ -56,51 +58,5 @@ function QuizCard(props) {
 
     return array;
   }
-  /* <li
-              
-             
-              value={decode(answer)}
-              onClick={(event) => props.handleSelection(event, decode(answer))}
-            >
-              {decode(answer)}
-            </li> */
-  //handle result
-  // function handleResult(questionsData) {
-  //   var answerContainers = quizzBlock.querySelectorAll(".answers-container");
-  // console.log(answerContainers);
-  // var userAnswer = "";
-  // var userAnswerID = "";
-
-  // for (var i = 0; i < questionsData.length; i++) {
-  //   const answerLocation = answerContainers[i].querySelector(
-  //     "input[name=question-no-" + i + "]:checked"
-  //   );
-  //   if (answerLocation === null) {
-  // alert("please answer all 5 questions");
-  // return hideButton();
-  // } else {
-  //   userAnswer = answerLocation.value;
-  //   userAnswerID = answerContainers[i].querySelector(
-  //     "input[name=question-no-" + i + "]:checked"
-  //   ).id;
-
-  //   if (userAnswer === questionsData[i].correct_answer) {
-  //     // add to the number of correct answers
-  //   score++;
-
-  //   document
-  //     .querySelector("label[for=" + userAnswerID + "]")
-  //     .classList.add("correct-selection");
-  // }
-  // check if answer is wrong or blank
-  //     else {
-  //       document
-  //         .querySelector("label[for=" + userAnswerID + "]")
-  //         .classList.add("wrong-selection");
-  //     }
-  //   }
-  // }
-  // resultLine.innerHTML = `you have ${score} correct answers`;
-  // hideButton();
 }
 export default QuizCard;
