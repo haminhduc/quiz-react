@@ -82,7 +82,7 @@ function App() {
   return (
     <div className="App">
       <div className="container">
-        <h1 className="quiz-title">General knowledge quiz</h1>
+        <h1 className="quiz-title">General knowledge Quiz</h1>
 
         {finalResult ? (
           <div className="quiz-end">
