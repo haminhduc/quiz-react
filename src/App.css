@@ -154,14 +154,8 @@ table {
 .answer-list {
   display: flex;
   flex-direction: column;
-  /* grid-template-columns: 1fr 1fr;
-  gap: 10px; */
 }
-.answer-item {
-  /* text-align: center; */
-  /* border: 0.7px solid black;
-  border-radius: 5px; */
-}
+
 hr {
   display: block;
   padding: 0;

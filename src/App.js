@@ -7,7 +7,10 @@ function App() {
   const [answerList, setAnswerList] = useState([]);
   const [finalResult, setFinalResult] = useState(false);
   const [score, setScore] = useState(null);
+  const [refresh, setRefresh] = useState(0);
 
+  const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const triviaAPI = "https://opentdb.com/api.php?amount=5";
 
   // decode special characters
@@ -22,14 +25,23 @@ function App() {
   // fetch API
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`${triviaAPI}`);
-      const newData = await response.json();
-      setQuestionList(newData.results);
+      setIsLoading(true);
+
+      try {
+        const response = await fetch(`${triviaAPI}`);
+        const newData = await response.json();
+        setQuestionList(newData.results);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setIsLoading(false);
+      }
+
       // console.log("collected data", newData.results);
     };
 
     fetchData();
-  }, []);
+  }, [refresh]);
   // console.log("collected data", questionList);
 
   // Function to handle radio button selection
@@ -78,6 +90,18 @@ function App() {
     setFinalResult(false);
     setScore(null);
   };
+  const handleRefresh = () => {
+    setRefresh(refresh + 1);
+    setFinalResult(false);
+    setScore(null);
+  };
+  if (isLoading) {
+    return <div className="loading-screen">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="error">Something went wrong</div>;
+  }
 
   return (
     <div className="App">
@@ -96,6 +120,9 @@ function App() {
             </div>
             <button className="btn" onClick={handleRestart}>
               Re-Try
+            </button>
+            <button className="btn" onClick={handleRefresh}>
+              Refresh
             </button>
           </div>
         ) : (
